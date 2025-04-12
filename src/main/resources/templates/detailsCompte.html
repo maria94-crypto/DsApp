@@ -8,17 +8,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <h2>Détail du compte</h2>
-<form th:action="@{/details/{id}}" method="get" class="border p-4 rounded shadow-lg bg-light">
-<p>ID: <span th:text="${compte.id}"></span></p>
-<p>Titulaire: <span th:text="${compte.titulaire}"></span></p>
-<p>Solde: <span th:text="${compte.solde}"></span></p>
 
-<form th:action="@{/depot/{id}(id=${compte.id})}" method="post">
+<br>
+<table class="table table-dark table-hover">
+	    <thead>
+			<th>Id</th>
+			<th>Titulaire</th>
+			<th>Solde</th>
+			</thead>
+			<tbody>
+		</tr>
+	    <tr th:each="c : ${comptes}">
+	        <td th:text="${c.id}"></td>
+	        <td th:text="${c.titulaire}"></td>
+	        <td th:text="${c.solde}"></td>
+	       </tr>
+		   </tbody>
+	</table>
+	</html>
+
+<form th:action="@{/comptes/depot/{id}(id=${c.id})}" method="post">
     <input type="number" name="montant"  placeholder="Montant à déposer" />
     <button type="submit">Déposer</button>
 </form>
 
-<form th:action="@{/retrait/{id}(id=${compte.id})}" method="post">
+<form th:action="@{/comptes/retrait/{id}(id=${c.id})}" method="post">
     <input type="number" name="montant"  placeholder="Montant à retirer" />
     <button type="submit">Retirer</button>
 </form>

@@ -39,12 +39,12 @@ public String detailsCompte(@PathVariable ("id") int id, Model model) {
 	
     for (Compte c : comptes) {
         if (c.getId() == id) {
-        	c.setTitulaire(c.getTitulaire());
-        	c.setSolde(c.getSolde());
-            break;
+        	
+        	model.addAttribute("c", c);
+        	
         }
     }
-    model.addAttribute("comptes", comptes);
+    
     return "detailsCompte";
 }
 @PostMapping("/depot/{id}")
@@ -55,7 +55,7 @@ public String depot(@PathVariable("id") int id, @RequestParam double montant) {
             break;
         }
     }
-    return "redirect:/details/" ;
+    return "redirect:../details/{id}" ;
 }
 @PostMapping("/retrait/{id}")
 public String retrait(@PathVariable int id, @RequestParam double montant) {
@@ -65,7 +65,11 @@ public String retrait(@PathVariable int id, @RequestParam double montant) {
             break;
         }
     }
-    return "redirect:/details/";
+    return "redirect:../details/{id}";
+}
+@GetMapping("index")
+public String index() {
+	return "index";
 }
 
 }
